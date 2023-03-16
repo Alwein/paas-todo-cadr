@@ -4,7 +4,7 @@ const app = express()
 app.use(express.json())
 
 app.get("/", function (req, res) {
-  res.send(`Malek is the boss`)
+  res.send(`Current env : ${process.env.NOM_ENV}`)
 })
 
 const port = process.env.PORT
