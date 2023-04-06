@@ -2,17 +2,25 @@ const axios = require('axios');
 const cron = require('node-cron');
 const http = require('http');
 
-const MATTERMOST_WEBHOOK_URL = 'https://mattermost.incubateur.net/hooks/kakczfaj5tf8xrgchs45h3busw';
-
 const postMessage = async (message) => {
   try {
-    await axios.post(MATTERMOST_WEBHOOK_URL, {
+    await axios.post(process.env.MATTERMOST_WEBHOOK_URL, {
       text: message,
     });
   } catch (error) {
     console.error('Erreur lors de l\'envoi du message :', error);
   }
 };
+
+const testMessage = async () => {
+  if (process.env.TEST_MESSAGE) {
+    await postMessage('Ceci est un message de test du bot Mattermost. Ignorez-le.');
+  }
+};
+  
+// Appelez cette fonction avant d'appeler sendMessageWeekly()
+testMessage();
+  
 
 const sendMessageWeekly = () => {
   // Planification de l'envoi du message hebdomadaire
