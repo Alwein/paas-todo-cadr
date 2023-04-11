@@ -18,28 +18,22 @@ const testMessage = async () => {
   }
 };
   
-// Appelez cette fonction avant d'appeler sendMessageWeekly()
 testMessage();
-  
 
 const sendMessageWeekly = () => {
-  // Planification de l'envoi du message hebdomadaire
-  // Chaque lundi à 9h00
-  cron.schedule('0 9 * * 1', () => {
-    postMessage('Qui est au 34 cette semaine ? \n Lundi 🔵 | Mardi 🔴 | Mercredi 🟠 | Jeudi 🟢 | Vendredi ⚫️');
+
+  cron.schedule('0 7 * * 4', () => {
+    postMessage('Qui est au 34 cette semaine ? \n Lundi 1️⃣ | Mardi 2️⃣ | Mercredi 3️⃣ | Jeudi 4️⃣ | Vendredi 5️⃣');
   });
 };
 
 sendMessageWeekly();
 
-
-// Créez un serveur HTTP minimal
 const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Bot Mattermost en cours d\'exécution\n');
   });
-  
-  // Écoutez un port spécifié dans les variables d'environnement ou utilisez le port 3000 par défaut
+
   const port = process.env.PORT || 3000;
   server.listen(port, () => {
     console.log(`Le serveur est à l'écoute sur le port ${port}`);
